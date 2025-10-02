@@ -62,6 +62,9 @@ export class SpinGame {
       text: 'Joker bu kez sana gülüyor. Super Pink Joker’de bugün %82 şansın var! Hadi şansını dene, eğlence başlasın.'
     }
   ];
+
+  animationState = 'rotating-slow';
+  allGames = [...this.games, ...this.games]; // para scroll infinito
   animationFrameId: number | null = null; 
   scrollSpeed: number = 12;
   deceleration: number = 0.3;
@@ -119,11 +122,14 @@ stopScroll() {
     this.isSpinning = true;
     this.winner = null;
 
-const winnerIndex = Math.floor(Math.random() * this.games.length);
-this.pendingWinner = this.games[winnerIndex];
+    const winnerIndex = Math.floor(Math.random() * this.games.length);
+    const winningGame = this.games[winnerIndex];
 
-this.scrollSpeed = 12;
-this.stopping = false;
+    this.animationState = 'rotating-fast';
+
+
+//this.scrollSpeed = 12;
+//this.stopping = false;
 
     // El ganador debe alinearse en el centro (posición 3, índice 3 = cuarta carta)
 //    const targetPosition = 3;
@@ -139,13 +145,18 @@ this.stopping = false;
 
     // Aplicar animación
 //    this.trackTranslateX = totalTranslate;
-    this.startScroll();
+//    this.startScroll();
     // simulamos animación de spin
     setTimeout(() => {
-    this.stopping = true;
-    this.alignToWinner(winnerIndex);
-  }, 3000);
-}
+    this.animationState = 'rotating-stop';
+      setTimeout(() => {
+      // 3. Detener → mostrar popup
+      this.animationState = '';
+      this.winner = winningGame;
+      this.isSpinning = false;
+    }, 2000); // duración de stopRotate
+  }, 3000); // duración fastRotate
+}    
 
   getWinnerText(name: string): string {
   switch (name) {

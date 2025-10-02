@@ -12,9 +12,9 @@
     <div class="cards-wrapper">
         <div class="spin-line"></div>
         
-      <div class="cards-track" [style.transform]="'translateX(' + trackTranslateX + 'px)'">
-        <div class="card" *ngFor="let game of games.concat(games)">
-          <img [src]="game.imageUrl" [alt]="game.name" class="card-img" />
+      <div class="cards-track" [ngClass]="animationState">
+        <div class="card" *ngFor="let game of games">
+          <img [src]="game.imageUrl" [alt]="game.name" />
         </div>
       </div>
 

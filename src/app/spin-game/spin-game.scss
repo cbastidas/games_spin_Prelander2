@@ -66,9 +66,9 @@
 /* Cards */
 .cards-track {
   display: flex;
-  gap: 10px;
-  transform: translateY(15px);
-  transition: transform 2s linear;
+  flex-wrap: nowrap;
+  gap: 16px;
+  width: max-content;
 }
 
 .card {
@@ -184,3 +184,32 @@
     }
   }
 }
+
+@keyframes slowRotate {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-1800px); }
+}
+@keyframes fastRotate {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-1800px); }
+}
+@keyframes stopRotate {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-1800px); }
+}
+
+@keyframes scrollLoop {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 8px));  /* solo la mitad porque duplicamos */
+  }
+}
+
+.rotating-slow { animation: scrollLoop 20s linear infinite; }
+.rotating-fast { animation: scrollLoop 0.5s linear infinite; }
+.rotating-stop { animation: scrollLoop 2s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; }
+
+.winner { border: 3px solid gold; box-shadow: 0 0 15px gold; }
+
